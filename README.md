@@ -1,18 +1,18 @@
 🌍 Earthquake Data Pipeline with Apache Airflow
-📌 Overview
+## 📌 Overview
 
 This project is an end-to-end ETL data pipeline built with Apache Airflow that automatically collects, processes, and analyzes global earthquake data from the USGS API.
 
 The pipeline is designed to simulate a real-world data engineering workflow, including ingestion, transformation, storage, and reporting.
 
-🎯 Objectives
+## 🎯 Objectives
 Automate earthquake data ingestion from a public API
 Clean and transform raw JSON data into structured format
 Store processed data for analytics
 Detect significant seismic events
 Generate daily reports
 Practice real-world Airflow orchestration patterns
-🏗️ Architecture
+## 🏗️ Architecture
 USGS Earthquake API
         ↓
 Apache Airflow DAG
@@ -26,7 +26,7 @@ PostgreSQL Storage
 Analytics & Aggregation
         ↓
 Report Generation (CSV)
-⚙️ Tech Stack
+## ⚙️ Tech Stack
 Apache Airflow – Workflow orchestration
 Python – Data processing
 Pandas – Data transformation
