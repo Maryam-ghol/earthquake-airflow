@@ -8,24 +8,28 @@ services:
       POSTGRES_PASSWORD: airflow
       POSTGRES_DB: airflow
     ports:
-      - "5432:5432"
+      - "5433:5432"
 
   airflow-init:
+    restart: "no"
     image: apache/airflow:2.9.0
     depends_on:
       - postgres
     environment:
+      AIRFLOW__CORE__EXECUTOR: SequentialExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
     command: >
       bash -c "
       airflow db migrate &&
+      airflow users list | grep airflow || 
       airflow users create
-        --username airflow
-        --password airflow
-        --firstname admin
-        --lastname admin
-        --role Admin
-        --email admin@example.com
+      --username airflow
+      --password airflow
+      --firstname Admin
+      --lastname User
+      --role Admin
+      --email admin@example.com
       "
 
   airflow-webserver:
@@ -36,6 +40,7 @@ services:
     environment:
       AIRFLOW__CORE__EXECUTOR: SequentialExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
@@ -51,6 +56,7 @@ services:
     environment:
       AIRFLOW__CORE__EXECUTOR: SequentialExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
