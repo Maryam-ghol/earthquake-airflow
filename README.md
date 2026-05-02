@@ -33,7 +33,9 @@ Pandas – Data transformation
 PostgreSQL – Data storage
 Docker – Containerized environment
 USGS API – Earthquake data source
-📂 Project Structure
+## 📂 Project Structure
+
+```text
 earthquake-airflow/
 │
 ├── dags/
@@ -51,27 +53,38 @@ earthquake-airflow/
 │   └── processed/
 │
 ├── logs/
+│
 ├── sql/
+│
 ├── docker-compose.yml
 ├── requirements.txt
 └── README.md
-🔄 Pipeline Workflow
+```
 
-The Airflow DAG executes the following steps:
+---
 
-Fetch Data
-Pulls earthquake data from USGS API
-Stores raw JSON locally
-Clean Data
-Extracts relevant fields (time, magnitude, location)
-Handles missing values and formatting
-Store Data
-Loads cleaned data into PostgreSQL
-Analytics
-Computes daily earthquake statistics
-Detects high-magnitude events
-Reporting
-Exports daily summary reports as CSV
+## 🔄 Pipeline Workflow
+
+1. **Fetch Data**
+   - Extract earthquake data from the USGS API
+   - Store raw JSON files in `data/raw/`
+
+2. **Data Cleaning**
+   - Parse and normalize JSON structure
+   - Extract relevant fields (time, magnitude, location)
+   - Handle missing or inconsistent values
+
+3. **Data Storage**
+   - Load cleaned data into PostgreSQL database
+   - Ensure structured and queryable format
+
+4. **Analytics**
+   - Compute daily statistics (count, mean magnitude, max magnitude)
+   - Identify significant earthquake events
+
+5. **Reporting**
+   - Generate daily summary reports
+   - Export results as CSV files in `data/processed/`
 🚀 How to Run
 1. Clone the repository
 git clone https://github.com/YOUR_USERNAME/earthquake-airflow.git
