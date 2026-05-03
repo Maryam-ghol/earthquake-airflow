@@ -28,12 +28,16 @@ def normalize_earthquake_data(input_file=None, **context):
         earthquake['properties']
         for earthquake in data
     ]
+    normalized_geometry_data = [
+        earthquake['geometry']
+        for earthquake in data
+    ]
 
     filename = f"normalized_earthquakes_{datetime.now().date()}.csv"
 
     file_path = PROCESSED_DATA_PATH / filename
 
-    df = pd.DataFrame(normalized_properties_data)
+    df = pd.DataFrame(normalized_properties_data + normalized_geometry_data)
     df.to_csv(file_path, index=False)
 
     logger.info(f"Saved normalized data to: {file_path}")
