@@ -13,26 +13,37 @@ Detect significant seismic events
 Generate daily reports
 Practice real-world Airflow orchestration patterns
 ## 🏗️ Architecture
+```text
 USGS Earthquake API
-        ↓
-Apache Airflow DAG
-        ↓
-Fetch Raw Data (JSON)
-        ↓
-Data Cleaning & Transformation (Pandas)
-        ↓
-PostgreSQL Storage
-        ↓
-Analytics & Aggregation
-        ↓
-Report Generation (CSV)
+        │
+        ▼
+Apache Airflow DAG (Orchestration)
+        │
+        ├── Fetch Data (API Ingestion)
+        │
+        ├── Clean & Transform (Pandas Processing)
+        │
+        ├── Store in PostgreSQL
+        │
+        ├── Analytics (Aggregation & Detection)
+        │
+        ▼
+Reporting Layer (CSV Export / Summary Files)
+```
+
+The pipeline is fully automated using Apache Airflow and follows a modular ETL design pattern where each stage is independently managed and reusable.
+
+---
 ## ⚙️ Tech Stack
-Apache Airflow – Workflow orchestration
-Python – Data processing
-Pandas – Data transformation
-PostgreSQL – Data storage
-Docker – Containerized environment
-USGS API – Earthquake data source
+- **Apache Airflow** – Workflow orchestration and scheduling
+- **Python 3.10+** – Core programming language
+- **Pandas** – Data cleaning and transformation
+- **Requests** – API data ingestion
+- **PostgreSQL** – Structured data storage
+- **Docker & Docker Compose** – Containerized environment setup
+- **USGS Earthquake API** – External data source
+
+---
 ## 📂 Project Structure
 
 ```text
