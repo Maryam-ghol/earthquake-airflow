@@ -9,6 +9,7 @@ USGS_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query"
 RAW_DATA_PATH = Path("data/raw")
 RAW_DATA_PATH.mkdir(parents=True, exist_ok=True)
 
+# Accept Airflow runtime metadata.--> **context
 def fetch_earthquake_data(**context):
 
     end_time = datetime.utcnow()

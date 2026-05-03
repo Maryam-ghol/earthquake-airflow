@@ -11,10 +11,11 @@ RAW_DATA_PATH.mkdir(parents=True, exist_ok=True)
 PROCESSED_DATA_PATH = Path("data/processed")
 PROCESSED_DATA_PATH.mkdir(parents=True, exist_ok=True)
 
-
+# Accept Airflow runtime metadata.--> **context
 def clean_earthquake_data(input_file=None, **context):
 
     # 📌 If running inside Airflow → use XCom----“Get data returned from the fetch_earthquake_data task.”
+    # context['ti']-> task instance object → xcom_pull() to get data from another task
     if input_file is None:
         input_file = context['ti'].xcom_pull(
             task_ids='fetch_earthquake_data'
