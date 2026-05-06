@@ -24,10 +24,20 @@ def normalize_earthquake_data(input_file=None, **context):
         data = json.load(f)
 
     # ✅ Keep only earthquakes with valid magnitude
-    normalized_data = [
-        {**earthquake['properties'], **earthquake['geometry']}
-        for earthquake in data
-    ]
+    normalized_data = []
+
+    for earthquake in data:
+        props = earthquake["properties"]
+        coords = earthquake["geometry"]["coordinates"]
+
+        normalized_data.append({
+            "mag": props.get("mag"),
+            "place": props.get("place"),
+            "time": props.get("time"),
+            "latitude": coords[1],
+            "longitude": coords[0],
+            "depth": coords[2]
+        })
    
 
     filename = f"normalized_earthquakes_{datetime.now().date()}.csv"
