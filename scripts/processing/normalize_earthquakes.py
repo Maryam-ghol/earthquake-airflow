@@ -24,20 +24,17 @@ def normalize_earthquake_data(input_file=None, **context):
         data = json.load(f)
 
     # ✅ Keep only earthquakes with valid magnitude
-    normalized_properties_data = [
-        earthquake['properties']
+    normalized_data = [
+        {**earthquake['properties'], **earthquake['geometry']}
         for earthquake in data
     ]
-    normalized_geometry_data = [
-        earthquake['geometry']
-        for earthquake in data
-    ]
+   
 
     filename = f"normalized_earthquakes_{datetime.now().date()}.csv"
 
     file_path = PROCESSED_DATA_PATH / filename
 
-    df = pd.DataFrame(normalized_properties_data + normalized_geometry_data)
+    df = pd.DataFrame(normalized_data)
     df.to_csv(file_path, index=False)
 
     logger.info(f"Saved normalized data to: {file_path}")
